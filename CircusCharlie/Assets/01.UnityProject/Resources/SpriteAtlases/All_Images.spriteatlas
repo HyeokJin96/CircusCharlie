@@ -33,6 +33,7 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: b4b4f2e134b4f4243a6df510e7aa9bb5, type: 3}
+    - {fileID: 102900000, guid: 56c27764983d7a049905800ccbe240b8, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -41,10 +42,13 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 00735c214d2ce094ba20f8ae525ae843, type: 3}
   - {fileID: 21300000, guid: a7981183e7050844b81b78a12238cfe0, type: 3}
   - {fileID: 21300000, guid: 72a66be4c3139a64297bef3d90bd1c03, type: 3}
+  - {fileID: 21300000, guid: 199b7745eef7cdc4ebe7339958149c2f, type: 3}
   - {fileID: 21300000, guid: 44d0d059e15fa0e438d241d6171b6978, type: 3}
+  - {fileID: 21300000, guid: 1fc32e6934f94d44cbe610d8c065aff3, type: 3}
   - {fileID: 21300000, guid: 4fa3b42baad1fce46b5f659ea45a3a92, type: 3}
   - {fileID: 21300000, guid: e9ec097bc8420f94084897cdc1f5475c, type: 3}
   - {fileID: 21300000, guid: 8272da3c9b9a9c24eb2a688a69fe3642, type: 3}
+  - {fileID: 21300000, guid: b791ed6d68018bb43b0fdb6db061b417, type: 3}
   - {fileID: 21300000, guid: c6530cedc4e59344db10250c25bef53c, type: 3}
   - {fileID: 21300000, guid: e6e10f1e80fe199469f55b6f2cf80b68, type: 3}
   - {fileID: 21300000, guid: cf934e3ef947f8c4cbd318fe9620c46b, type: 3}
@@ -52,10 +56,13 @@ SpriteAtlas:
   - replay
   - replayT
   - soundmute
+  - Title_Star1
   - play
+  - Title_Star2
   - soundunmute
   - home
   - playT
+  - Title_Star3
   - Button
   - homeT
   - Button_Press

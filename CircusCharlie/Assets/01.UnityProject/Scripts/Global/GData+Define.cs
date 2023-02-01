@@ -5,13 +5,6 @@ using UnityEngine;
 public static partial class GData
 {
     public const string SCENE_NAME_TITLE = "01.TitleScene";
-    public const string SCENE_NAME_PLAY = "02.PlayScene";
-
-    public const string OBJ_NAME_CURRENT_LEVEL = "Level_1";
+    public const string SCENE_NAME_STAGE = "02.StageScene";
+    public const string SCENE_NAME_PLAY = "03.PlayScene";
 }
-
-public enum PuzzleType
-{
-    None = -1,
-    PUZZLE_BIG_TRIANGLE
-}   //  PuzzleType
