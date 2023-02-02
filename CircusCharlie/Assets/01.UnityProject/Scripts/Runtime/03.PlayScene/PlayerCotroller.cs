@@ -11,6 +11,7 @@ public class PlayerCotroller : MonoBehaviour
     public float jumpForce = default;
 
     private bool isGrounded = false;
+    private bool isHited = false;
     private bool isDead = false;
 
     private Animator playerAni = default;
@@ -85,4 +86,14 @@ public class PlayerCotroller : MonoBehaviour
         isGrounded = false;
     }
 
+    private void OnTriggerEnter2D (Collider2D collision)
+    {
+        if (collision.tag.Equals("Obstacle"))
+        {
+            isHited = true;
+            playerAni.SetBool("Hited", isHited);
+
+            playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, jumpForce);
+        }
+    }
 }
