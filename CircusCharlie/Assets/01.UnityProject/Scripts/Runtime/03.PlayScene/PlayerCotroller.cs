@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerCotroller : MonoBehaviour
@@ -19,29 +20,28 @@ public class PlayerCotroller : MonoBehaviour
     void Update()
     {
         float xInput = Input.GetAxis("Horizontal");
-        float xspeed = xInput * speed;
 
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (xInput > 0f)
         {
-            playerRigidbody.AddForce(new Vector2(speed, 0f));
+            playerRigidbody.velocity = new Vector2(xInput * speed, playerRigidbody.velocity.y);
         }
-        if (Input.GetKey(KeyCode.LeftArrow))
+        else if (xInput < 0f)
         {
-            playerRigidbody.AddForce(new Vector2(-speed, 0f));
+            playerRigidbody.velocity = new Vector2(xInput * speed, playerRigidbody.velocity.y);
         }
+        else
+        {
+            playerRigidbody.velocity = new Vector2(0, playerRigidbody.velocity.y);
+        }
+
         if (Input.GetKey(KeyCode.Space))
         {
-            playerRigidbody.velocity = Vector2.zero;
-
-            playerRigidbody.AddForce(new Vector2(0f, jumpForce));
-        }
-        else if (Input.GetKey(KeyCode.Space) && 0 < playerRigidbody.velocity.y)
-        {
-            playerRigidbody.velocity = playerRigidbody.velocity * 0.5f;
+            if (playerRigidbody.velocity.y == 0)
+            {
+            playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, jumpForce);
+            }
         }
 
-        Vector2 newVelocity = new Vector2(xspeed, 0f);
-        playerRigidbody.velocity = newVelocity;
     }
 
     public void Die()
