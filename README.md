@@ -5,3 +5,4 @@
 2023-02-02 / v0.0.3 / CameraControll
 2023-02-02 / v0.0.4 / PlayerControll and Background modify
 2023-02-02 / v0.0.5 / Add Collider
+2023-02-02 / v0.0.6 / Add Object
