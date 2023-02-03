@@ -1,17 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class PlayerCotroller : MonoBehaviour
 {
     public Rigidbody2D playerRigidbody = default;
+
+    public GameObject Life_1 = default;
+    public GameObject Life_2 = default;
+    public GameObject Life_3 = default;
+
     public float speed = default;
     public float jumpForce = default;
 
     private bool isGrounded = false;
-    private bool isHited = false;
     private bool isDead = false;
 
     private Animator playerAni = default;
@@ -19,6 +25,8 @@ public class PlayerCotroller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GData.life = 3;
+
         playerRigidbody = GetComponent<Rigidbody2D>();
         playerAni = GetComponent<Animator>();
         playerAudio = GetComponent<AudioSource>();
@@ -33,30 +41,36 @@ public class PlayerCotroller : MonoBehaviour
         }   //  if : 사망시 종료
 
         //  { 플레이어 이동 관련 로직 
-        float xInput = Input.GetAxis("Horizontal");
 
-        if (xInput > 0f)
+        if (GData.isGameOver == false)
         {
-            playerRigidbody.velocity = new Vector2(xInput * speed, playerRigidbody.velocity.y);
-        }
-        else if (xInput < 0f)
-        {
-            playerRigidbody.velocity = new Vector2(xInput * speed, playerRigidbody.velocity.y);
-        }
-        else
-        {
-            playerRigidbody.velocity = new Vector2(0, playerRigidbody.velocity.y);
-        }
+            float xInput = Input.GetAxis("Horizontal");
 
-        if (Input.GetKey(KeyCode.Space))
-        {
-            if (playerRigidbody.velocity.y == 0)
+            if (xInput > 0f)
             {
-            playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, jumpForce);
+                playerRigidbody.velocity = new Vector2(xInput * speed, playerRigidbody.velocity.y);
             }
+            else if (xInput < 0f)
+            {
+                playerRigidbody.velocity = new Vector2(xInput * speed, playerRigidbody.velocity.y);
+            }
+            else
+            {
+                playerRigidbody.velocity = new Vector2(0, playerRigidbody.velocity.y);
+            }
+
+            if (Input.GetKey(KeyCode.Space))
+            {
+                if (playerRigidbody.velocity.y == 0)
+                {
+                    playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, jumpForce);
+                }
+            }
+
+            playerAni.SetBool("Grounded", isGrounded);
+
         }
 
-        playerAni.SetBool("Grounded", isGrounded);
         //  } 플레이어 이동 관련 로직
     }
 
@@ -90,10 +104,35 @@ public class PlayerCotroller : MonoBehaviour
     {
         if (collision.tag.Equals("Obstacle"))
         {
-            isHited = true;
-            playerAni.SetBool("Hited", isHited);
+            GData.isHited = true;
+
+            GData.life -= 1;
+
+            switch (GData.life)
+            {
+                case 2:
+                    Life_1.gameObject.SetActive(false);
+                    break;
+                case 1:
+                    Life_2.gameObject.SetActive(false);
+                    break;
+                case 0:
+                    Life_3.gameObject.SetActive(false);
+                    break;
+                default:
+                    GData.isGameOver = true;
+                    break;
+            }
+            playerAni.SetBool("Hited", GData.isHited);
 
             playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, jumpForce);
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag.Equals("ScoreZone"))
+        {
+            GData.isPassed = true;
         }
     }
 }

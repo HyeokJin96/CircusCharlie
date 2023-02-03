@@ -1,14 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public TMP_Text playerText = default;
     public TMP_Text scoreText = default;
     public TMP_Text bonusText = default;
-
-    public bool isGameOver = false;
 
     public float score = default;
     public float bonus = default;
@@ -16,24 +18,48 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        StartCoroutine(ShowText());
+
+        GData.life = 3;
         score = 0;
         bonus = 5000;
-        isGameOver = false;
+        GData.isGameOver = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!isGameOver)
+        if (!GData.isGameOver)
         {
+            Invoke("SetInfoScore", 1f);
 
-            score += Time.deltaTime;
-            bonus -= Time.deltaTime * 10;
+            scoreText.text = " " + score.ToString("000000");
+            bonusText.text = "BONUS - " + bonus.ToString("0000");
 
-            scoreText.text = "1P - " + 100 * (int) score;
-            bonusText.text = "BONUS - " + (int) bonus;
+            if (GData.isPassed == true)
+            {
+                score += 200;
+                GData.isPassed = false;
+            }
         }
+    }
 
+    public void SetInfoScore()
+    {
+        CancelInvoke();
 
+        bonus -= 10f;
+        score += 100f;
+    }
+
+    IEnumerator ShowText()
+    {
+        while (!GData.isGameOver)
+        {
+            playerText.color = Color.black;
+            yield return new WaitForSeconds(0.5f);
+            playerText.color = Color.white;
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 }
