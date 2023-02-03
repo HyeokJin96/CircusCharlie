@@ -7,6 +7,8 @@ TagManager:
   - Ground
   - Obstacle
   - ScoreZone
+  - EndZone
+  - Coin
   layers:
   - Default
   - TransparentFX

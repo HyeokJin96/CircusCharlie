@@ -9,4 +9,6 @@ public static partial class GData
     public static bool isGameOver = false;
 
     public static int life = default;
+    public static float score = default;
+    public static float bonus = default;
 }

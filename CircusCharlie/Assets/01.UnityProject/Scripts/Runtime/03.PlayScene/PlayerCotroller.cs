@@ -127,6 +127,11 @@ public class PlayerCotroller : MonoBehaviour
 
             playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, jumpForce);
         }
+
+        if (collision.tag.Equals("EndZone"))
+        {
+            GData.isGameOver = true;
+        }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {

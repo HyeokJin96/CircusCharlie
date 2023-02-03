@@ -12,17 +12,14 @@ public class GameManager : MonoBehaviour
     public TMP_Text scoreText = default;
     public TMP_Text bonusText = default;
 
-    public float score = default;
-    public float bonus = default;
-
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(ShowText());
 
         GData.life = 3;
-        score = 0;
-        bonus = 5000;
+        GData.score = 0;
+        GData.bonus = 5000;
         GData.isGameOver = false;
     }
 
@@ -33,12 +30,12 @@ public class GameManager : MonoBehaviour
         {
             Invoke("SetInfoScore", 1f);
 
-            scoreText.text = " " + score.ToString("000000");
-            bonusText.text = "BONUS - " + bonus.ToString("0000");
+            scoreText.text = " " + GData.score.ToString("000000");
+            bonusText.text = "BONUS - " + GData.bonus.ToString("0000");
 
             if (GData.isPassed == true)
             {
-                score += 200;
+                GData.score += 200;
                 GData.isPassed = false;
             }
         }
@@ -48,8 +45,8 @@ public class GameManager : MonoBehaviour
     {
         CancelInvoke();
 
-        bonus -= 10f;
-        score += 100f;
+        GData.bonus -= 10f;
+        GData.score += 100f;
     }
 
     IEnumerator ShowText()
